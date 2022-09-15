@@ -1,11 +1,5 @@
-function heartbeat(_req, res) {
-  return res
-    .status(200)
-    .send(
-      {status:200, message:"Successfull"}
-      );
-}
+import controllers from './controllers';
 
 export default function routes(app) {
-  app.get('/', heartbeat);
+  app.get('/', controllers.heartbeat);
 }
