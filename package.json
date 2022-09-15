@@ -1,0 +1,56 @@
+{
+  "name": "k2-faucet-backend",
+  "version": "1.0.0",
+  "description": "K2 Faucet Backend",
+  "main": "index.js",
+  "directories": {
+    "test": "test"
+  },
+  "scripts": {
+    "prestart": "npm run build",
+    "start": "node build/src/index.js",
+    "start-development": "npx nodemon",
+    "clean": "rimraf coverage build tmp",
+    "prebuild": "npm run lint",
+    "build": "tsc -p tsconfig.release.json",
+    "build-prod": "tsc -p tsconfig.release.json && for f in $(find build/src/ -name '*.js') ; do cat $f | sed -E 's/console.(log|debug|info|...|count)\\((.*)\\);?//g' | terser --compress --mangle -o $f ; done",
+    "build:watch": "tsc -w -p tsconfig.release.json",
+    "lint": "eslint . --quiet --ext .ts,.tsx",
+    "test": "jest --coverage",
+    "test:watch": "jest --watch"
+  },
+  "author": "Syed Ghazanfer Anwar (s.ghazanfer@koii.network)",
+  "license": "ISC",
+  "devDependencies": {
+    "@solana/buffer-layout": "^4.0.0",
+    "@types/jest": "~27.0.2",
+    "@types/levelup": "^5.1.1",
+    "@types/mz": "^2.7.4",
+    "@types/node": "~16.11.6",
+    "@typescript-eslint/eslint-plugin": "~5.7.0",
+    "@typescript-eslint/parser": "~5.7.0",
+    "eslint": "~8.4.1",
+    "eslint-config-prettier": "~8.3.0",
+    "eslint-plugin-jest": "~25.3.0",
+    "jest": "~27.4.4",
+    "nodemon": "^2.0.19",
+    "prettier": "~2.5.1",
+    "rimraf": "~3.0.2",
+    "ts-jest": "~27.1.1",
+    "ts-node": "^10.9.1",
+    "tsutils": "~3.21.0",
+    "typescript": "~4.5.3",
+    "yaml": "^2.1.0"
+  },
+  "dependencies": {
+    "@_koi/web3.js": "^0.0.6",
+    "axios": "^0.27.2",
+    "chalk": "4.1.2",
+    "dotenv": "^16.0.2",
+    "eslint": "^8.23.1",
+    "express": "^4.18.1",
+    "helmet": "^6.0.0",
+    "mongoose": "^6.6.1",
+    "morgan": "^1.10.0"
+  }
+}
